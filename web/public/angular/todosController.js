@@ -6,18 +6,25 @@
         var ctrl = this;
         ctrl.alumnos = [];
         
-        var promise = $http({
+        $http({
             method: 'GET',
             url: '/alumnos/api/'
-        });
-        
-        promise.success(function(alumnos){
+        }).success(function(alumnos){
             ctrl.alumnos = alumnos;
-        });
-        
-        promise.error(function(data, status, headers, config){
+        }).error(function(data, status, headers, config){
             console.error('%s %s %s', config.method, config.url, status);
         });
+        
+        ctrl.delete = function (id) {
+            $http({
+                method: "DELETE",
+                url: '/alumnos/api/' + id
+            }).success(function(){
+                $location.path('/');
+            }).error(function(data, status, headers, config){
+                console.error('%s %s %s', config.method, config.url, status);
+            });       
+        }
         
     }]);
 })();

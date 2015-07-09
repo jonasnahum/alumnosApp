@@ -1,5 +1,10 @@
 <ul ng-controller="TodosController as ctrl">
     <li ng-repeat="alumno in ctrl.alumnos">
         {{ alumno.nombre }} - {{ alumno.calificacion }}
+        <a ng-href="#/editar/{{alumno._id}}">Editar</a>
+        <a ng-href="#/ver/{{alumno._id}}">Ver</a>
+        <a href="#" ng-click="ctrl.delete(alumno._id)">Borrar</a>
     </li>
 </ul>
+
+<a ng-href="#/nuevo">Nuevo</a>
