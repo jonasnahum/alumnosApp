@@ -1,22 +1,16 @@
 (function() {
     var app = angular.module('app');
     
-    app.controller('NuevoController', ['$http', '$location', function($http, $location) {
+    app.controller('NuevoController', ['$http', '$location', 'api', function($http, $location, api) {
         var ctrl = this;
         ctrl.nombre = '';
         ctrl.calificacion = 0;
         
         ctrl.guardar = function() {
-            $http({
-                method: 'POST',
-                url: '/alumnos/api/',
-                data: ctrl
-            }).success(function(alumnos){
+            api.save(ctrl, function(alumnos){
                 $location.path('/');
-            }).error(function(data, status, headers, config){
-                console.error('%s %s %s', config.method, config.url, status);
             });
-        }
+        };
         
         
     }]);
