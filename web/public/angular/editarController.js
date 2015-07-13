@@ -1,6 +1,6 @@
 (function() {
     var app = angular.module('app');    
-    var dependencies = ['$http', '$location', '$routeParams', 'api'];
+    var dependencies = ['$http', '$location', '$routeParams', 'alumnosApi'];
     
     dependencies.push(function($http, $location, $routeParams, api) {
         var ctrl = this;

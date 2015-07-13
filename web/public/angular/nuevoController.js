@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('app');
     
-    app.controller('NuevoController', ['$http', '$location', 'api', function($http, $location, api) {
+    app.controller('NuevoController', ['$http', '$location', 'alumnosApi', function($http, $location, api) {
         var ctrl = this;
         ctrl.nombre = '';
         ctrl.calificacion = 0;

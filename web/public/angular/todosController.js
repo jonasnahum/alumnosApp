@@ -1,8 +1,9 @@
 (function() {
     var app = angular.module('app');
     
-    app.controller('TodosController', ['$http', '$location', 'api', function($http, $location, api) {
+    app.controller('TodosController', ['$http', '$location', 'alumnosApi', function($http, $location, api) {
        
+
         var ctrl = this;
         ctrl.alumnos = [];
         

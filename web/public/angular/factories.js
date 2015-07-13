@@ -1,36 +1,42 @@
 (function() {
     var app = angular.module('app');
     
-    app.factory('api', ['$http', function($http) {
-        var api = {};
-        api.url = '/alumnos/api/';
+    app.factory('apiFactory', ['$http', function($http) {
         
-        api.error = function(data, status, headers, config){
+        var Api = function(url) {
+            this.url = url;
+        };
+        
+        Api.prototype.error = function(data, status, headers, config){
             console.error('%s %s %s', config.method, config.url, status);
         };
         
-        api.getOne = function(id, success) {
+        Api.prototype.getOne = function(id, success) {
+            var api = this;
             $http({
                 method: "GET",
                 url: api.url + id
             }).success(success).error(api.error);
         };
         
-        api.getAll = function(success) {
+        Api.prototype.getAll = function(success) {
+            var api = this;
             $http({
                 method: 'GET',
                 url: api.url
             }).success(success).error(api.error);
         };
         
-        api.delete = function(id, success) {
+        Api.prototype.delete = function(id, success) {
+            var api = this;
             $http({
                 method: "DELETE",
                 url: api.url + id
             }).success(success).error(api.error);       
         };
         
-        api.save = function(model, success) {
+        Api.prototype.save = function(model, success) {
+            var api = this;
             $http({
                 method: 'POST',
                 url: api.url,
@@ -38,7 +44,8 @@
             }).success(success).error(api.error);
         };
         
-        api.update = function(model, success) {
+        Api.prototype.update = function(model, success) {
+            var api = this;
             $http({
                 method: 'PUT',
                 url: api.url,
@@ -46,7 +53,18 @@
             }).success(success).error(api.error);
         };
         
-        return api;
+        return function(url) {
+            return new Api(url);
+        };
     }]);
 })();
 
+
+(function() {
+    var app = angular.module('app');
+    
+    app.factory('alumnosApi', ['apiFactory', function(apiFactory) {
+        var api = apiFactory('/alumnos/api/');
+        return api;     
+    }]);
+})();
