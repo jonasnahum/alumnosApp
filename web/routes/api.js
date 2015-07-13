@@ -2,14 +2,6 @@ var express = require('express');
 var router = express.Router();
 var alumnos = require('./../models/alumno');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/students');
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function (callback) {
-    console.log('Conectado a alumnosDB');
-});
-
 
 router.get('/', function(req, res, next) {
     var Alumno = mongoose.model('Alumno');
