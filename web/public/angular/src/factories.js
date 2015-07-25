@@ -1,14 +1,14 @@
 (function() {
     var app = angular.module('app');
     
-    app.factory('apiFactory', ['$http', function($http) {
+    app.factory('apiFactory', ['$http', '$log', function($http, $log) {
         
         var Api = function(url) {
             this.url = url;
         };
         
         Api.prototype.error = function(data, status, headers, config){
-            console.error('%s %s %s', config.method, config.url, status);
+            $log.error('%s %s %s', config.method, config.url, status);
         };
         
         Api.prototype.getOne = function(id, success) {
