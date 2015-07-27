@@ -8,17 +8,24 @@ describe("Alumnos Api ", function() {
     ];
     var $httpMock = undefined;
     var api = undefined;
+    var logMock = undefined;
+    var putHandler = undefined; 
     
     beforeEach(module('app'));
     
-    beforeEach(inject(function($httpBackend, alumnosApi) {
+    beforeEach(inject(function($httpBackend, alumnosApi, $log) {
+        
         $httpMock = $httpBackend;
+        
+        logMock = $log;
+        
         api = alumnosApi;
         $httpBackend.when('GET', url).respond(alumnos);
         $httpBackend.when('GET', url + id).respond(alumnos[0]); 
         $httpBackend.when('POST', url).respond(true);
-        $httpBackend.when('PUT', url).respond(true);
+        putHandler = $httpBackend.when('PUT', url).respond(true);
         $httpBackend.when('DELETE', url + id).respond(false);
+    
     }));
     
     it('gets all', function() {
@@ -58,30 +65,25 @@ describe("Alumnos Api ", function() {
     });
     
     
-    it('Server fail', inject(function($log) {
-        $log.error = function(){
-            console.dir(params);
-           // $log.error('%s %s %s', config.method, config.url, status);
-            expect(params[0]).toBe('%s %s %s');
-            expect(params[1]).toBe('PUT');
-            expect(params[2]).toBe(url);
-            expect(params[3]).toBe(404);
-            
+    it('Server fail', function() {
+        
+        logMock.error =  function() {
+            expect(arguments[0]).toBe('%s %s %s');
+            expect(arguments[1]).toBe('PUT');
+            expect(arguments[2]).toBe(url);
+            expect(arguments[3]).toBe(404);            
         };
-        
-
-        var obj = $httpMock.when('PUT', url);
-        obj.respond(404, null, null, 404);
-        
-        // Api.prototype.error = function(data, status, headers, config){
+    
+        putHandler.respond(404, 'not found')
         
         $httpMock.expectPUT(url);
         api.update(alumnos[1], function(result) {                
-            //expect(result).toBe(false);
+            console.log('ESTE TEXTO NO DEBERIA APARECER');
+            console.log(arguments.length);
         });
         $httpMock.flush();
         
-    }));
+    });
     
     
 });
