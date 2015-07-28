@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var db = require('./database/dbConnection')();
 db.connect('mongodb://localhost/students');
 
@@ -24,6 +26,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    store: new RedisStore({
+        host: 'localhost',
+        port: 6379
+    }),
+    secret: '0FFD9D8D-78F1-4A30-9A4E-0940ADE81645',
+    cookie: { path: '/', maxAge: 3600000 }
+}));
 
 app.use('/', routes);
 app.use('/users', users);
