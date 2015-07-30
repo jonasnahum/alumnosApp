@@ -9,9 +9,11 @@ var RedisStore = require('connect-redis')(session);
 var db = require('./database/dbConnection')();
 db.connect('mongodb://localhost/students');
 
+var container = require('./src/container');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var api = require('./routes/api');
+var api = container.get("alumnosController");
 
 var app = express();
 
@@ -39,7 +41,7 @@ app.use(session({
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/alumnos/api', api);
+app.use('/alumnos/api', api.router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

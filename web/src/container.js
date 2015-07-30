@@ -1,18 +1,24 @@
 //dependencies
 var intravenous = require("intravenous");
-var mongoose = require("mongoose");
 
 //local modules
-var alumno = require("./alumno");
-alumno.$inject = ["mongoose"];
+var Alumno = require("./alumno");
+Alumno.$inject = ["mongoose"];
 
-var alumnosApi = require("./alumnosApi");
-alumnosApi.$inject = ["alumno"];
+var AlumnosApi = require("./alumnosApi");
+AlumnosApi.$inject = ["alumno"];
+
+var AlumnosController = require("./alumnosController");
+AlumnosController.$inject = ["express", "alumnosApi"];
 
 
 var container = intravenous.create();
 
 //register
-container.register("mongoose", mongoose);
-container.register("alumno", alumno, 'singleton');
-container.register("alumnosApi")
+container.register("mongoose", { mongoose: require('mongoose') });
+container.register("alumno", Alumno);
+container.register("alumnosApi", AlumnosApi);
+container.register("express", { express: require('express') });
+container.register("alumnosController", AlumnosController);
+
+module.exports = container;

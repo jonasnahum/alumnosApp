@@ -14,6 +14,27 @@ var AlumnosApi = (function() {
         alumno.save(callback);
     };
     
+    AlumnosApi.prototype.getOne = function(id, callback) {
+        var that = this;
+        that.alumno.model.findById(id, callback);
+    };
+    
+    AlumnosApi.prototype.update = function(body, callback) {
+        var that = this;
+        that.alumno.model.findById(body.id, function (err, alumno) {
+            if(err) return next(err);
+
+            alumno.nombre = body.nombre;
+            alumno.calificacion = body.calificacion;
+
+            alumno.save(callback); 
+        });
+    };
+    
+    AlumnosApi.prototype.delete = function(id, callback) {
+        var that = this;
+        that.alumno.model.findByIdAndRemove(id, callback);
+    };
     
     
     return AlumnosApi;
