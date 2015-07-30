@@ -1,8 +1,8 @@
 module.exports = (function() {
     var AlumnosController = function(express, alumnosApi) {
-        this.express = express.express;
+        this.express = express.module;
         this.alumnosApi = alumnosApi;
-        this.router = express.express.Router();
+        this.router = this.express.Router();
         
         var router = this.router;
         

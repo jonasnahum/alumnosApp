@@ -6,10 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
-var db = require('./database/dbConnection')();
-db.connect('mongodb://localhost/students');
 
 var container = require('./src/container');
+
+var db = container.get('dbConnection');
+db.connect('mongodb://localhost/students');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

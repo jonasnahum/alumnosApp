@@ -1,10 +1,10 @@
 var Alumno = function(mongoose) {
-    this.mongoose = mongoose.mongoose;
-    this.schema = mongoose.mongoose.Schema({
+    this.mongoose = mongoose.module;
+    this.schema = this.mongoose.Schema({
         nombre: String,
         calificacion: Number
     });
-    this.model = mongoose.mongoose.model('Alumno', this.schema);
+    this.model = this.mongoose.model('Alumno', this.schema);
 };
 
 Alumno.prototype.create = function (configObj) {

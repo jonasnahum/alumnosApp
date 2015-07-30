@@ -1,19 +1,15 @@
-var mongoose = require('mongoose');
-
-var DbConnection = function () {
-    
+var DbConnection = function (mongoose) {
+    this.mongoose = mongoose.module;
 }
 
 DbConnection.prototype.connect = function (connectionString) {
-    mongoose.connect(connectionString);
-    var db = mongoose.connection;
+    this.mongoose.connect(connectionString);
+    var db = this.mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
         console.log('Conectado a alumnosDB');
     });    
 }
 
-module.exports = function() {
-    return new DbConnection();
-}
+module.exports = DbConnection;
 
