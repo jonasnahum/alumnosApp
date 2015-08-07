@@ -22,7 +22,7 @@ var AlumnosApi = (function() {
     AlumnosApi.prototype.update = function(body, callback) {
         var that = this;
         that.alumno.model.findById(body.id, function (err, alumno) {
-            if(err) return next(err);
+            if(err) return callback(err, null);
             
             alumno.nombre = body.nombre;
             alumno.calificacion = body.calificacion;

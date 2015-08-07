@@ -1,4 +1,5 @@
 var mongoose = {
+    err: undefined,
     database: [],
     models: {},
     module: {
@@ -17,7 +18,7 @@ var mongoose = {
                 
             };
             Model.find = function(callback) {
-                callback(null, mongoose.database);
+                callback(mongoose.err, mongoose.database);
             };
             Model.findById = function(id, callback) {
                 var item = undefined;
@@ -27,7 +28,7 @@ var mongoose = {
                         break;
                     }
                 }
-                callback(undefined, item);
+                callback(mongoose.err, item);
             };
             Model.findByIdAndRemove = function(id, callback) {
                 var deleted = undefined;
@@ -37,7 +38,7 @@ var mongoose = {
                     mongoose.database.splice(index, 1);
                     deleted = found;
                 });
-                callback(null, deleted);
+                callback(mongoose.err, deleted);
             };
             Model.prototype.save = function(callback) {
                 
@@ -51,7 +52,7 @@ var mongoose = {
                         mongoose.database[index] = that;
                     }
                 });
-                callback(null, that);
+                callback(mongoose.err, that);
             };
             mongoose.models[name] = {
                 model: Model,
