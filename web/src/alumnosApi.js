@@ -23,7 +23,7 @@ var AlumnosApi = (function() {
         var that = this;
         that.alumno.model.findById(body.id, function (err, alumno) {
             if(err) return next(err);
-
+            
             alumno.nombre = body.nombre;
             alumno.calificacion = body.calificacion;
 
