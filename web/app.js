@@ -15,6 +15,7 @@ db.connect('mongodb://localhost/students');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var usuariosApi = container.get("usuariosController");
 var api = container.get("alumnosController");
 
 var app = express();
@@ -44,6 +45,7 @@ app.use(session({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/alumnos/api', api.router);
+app.use('/usuarios/api', usuariosApi.router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

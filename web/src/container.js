@@ -14,6 +14,14 @@ AlumnosController.$inject = ["express", "alumnosApi"];
 var DbConnection = require("./../database/dbConnection");
 DbConnection.$inject = ["mongoose"];
 
+var Usuario = require("./usuario");
+Usuario.$inject = ["mongoose"];
+
+var UsuariosApi = require("./usuariosApi");
+UsuariosApi.$inject = ["usuario"];
+
+var UsuariosController = require("./usuariosController");
+UsuariosController.$inject = ["express", "usuariosApi", "moment", "jwt"];
 
 var container = intravenous.create();
 
@@ -24,5 +32,10 @@ container.register("alumnosApi", AlumnosApi);
 container.register("express", { module: require('express') });
 container.register("alumnosController", AlumnosController);
 container.register("dbConnection", DbConnection);
+container.register("moment", { module: require('moment') });
+container.register("jwt", { module: require('jwt-simple') });
+container.register("usuario", Usuario);
+container.register("usuariosApi", UsuariosApi);
+container.register("usuariosController", UsuariosController);
 
 module.exports = container;

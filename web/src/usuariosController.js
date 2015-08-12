@@ -3,13 +3,13 @@ module.exports = (function() {
         this.express = express.module;
         this.usuariosApi = usuariosApi;
         this.router = this.express.Router();
-        this.moment = moment;
-        this.jwt = jwt;
+        this.moment = moment.module;
+        this.jwt = jwt.module;
         
         var router = this.router;
-        
-        router.get('/login', function(req, res, next) {
-            var that = this;
+        var that = this;
+            
+        router.post('/login', function(req, res, next) {
             that.usuariosApi.findByEmail(req.body.email, function(err, user) {
                 if(err) {
                     return next(err);
@@ -38,6 +38,14 @@ module.exports = (function() {
                 });
             });
         });
+        
+        router.post('/', function(req, res, next) {
+            usuariosApi.save(req.body, function(err, usuario){
+                if(err) return next(err);
+                res.json({success: true});       
+            });
+        });
+        
     }
     
     return UsuariosController;
