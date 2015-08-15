@@ -10,7 +10,7 @@ var UsuariosApi = (function() {
     
     UsuariosApi.prototype.save = function(body, callback) {
         var that = this;
-        var usuario = that.usario.create(body);
+        var usuario = that.usuario.create(body);
         usuario.save(callback);        
     };
     

@@ -20,8 +20,8 @@ Usuario.$inject = ["mongoose"];
 var UsuariosApi = require("./usuariosApi");
 UsuariosApi.$inject = ["usuario"];
 
-var UsuariosController = require("./usuariosController");
-UsuariosController.$inject = ["express", "usuariosApi", "moment", "jwt"];
+var AccountController = require("./accountController");
+AccountController.$inject = ["express", "usuariosApi", "moment", "jwt"];
 
 var container = intravenous.create();
 
@@ -36,6 +36,6 @@ container.register("moment", { module: require('moment') });
 container.register("jwt", { module: require('jwt-simple') });
 container.register("usuario", Usuario);
 container.register("usuariosApi", UsuariosApi);
-container.register("usuariosController", UsuariosController);
+container.register("usuariosController", AccountController);
 
 module.exports = container;

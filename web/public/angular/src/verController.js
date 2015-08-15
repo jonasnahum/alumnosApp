@@ -1,13 +1,13 @@
 (function() {
     var app = angular.module('app');
     
-    app.controller('VerController', ['$http', '$routeParams', 'alumnosApi', function($http, $route, api) {
+    app.controller('VerController', ['$http', '$routeParams', 'alumnosProxy', function($http, $route, proxy) {
         var ctrl = this;
         ctrl.nombre = '';
         ctrl.calificacion = 0;
         
         ctrl.obtener = function(id) {
-            api.getOne(id, function(alumno){
+            proxy.getOne(id, function(alumno){
                 ctrl.nombre = alumno.nombre;
                 ctrl.calificacion = alumno.calificacion;
             });

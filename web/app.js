@@ -45,7 +45,7 @@ app.use(session({
 app.use('/', routes);
 app.use('/users', users);
 app.use('/alumnos/api', api.router);
-app.use('/usuarios/api', usuariosApi.router);
+app.use('/account/api', usuariosApi.router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

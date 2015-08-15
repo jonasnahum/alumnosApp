@@ -1,22 +1,22 @@
 (function() {
     var app = angular.module('app');    
-    var dependencies = ['$http', '$location', '$routeParams', 'alumnosApi'];
+    var dependencies = ['$http', '$location', '$routeParams', 'alumnosProxy'];
     
-    dependencies.push(function($http, $location, $routeParams, api) {
+    dependencies.push(function($http, $location, $routeParams, proxy) {
         var ctrl = this;
         ctrl.nombre = '';
         ctrl.calificacion = 0;
         ctrl.id = $routeParams.id;
         
         ctrl.obtener = function(id) {
-            api.getOne(id, function(alumno){
+            proxy.getOne(id, function(alumno){
                 ctrl.nombre = alumno.nombre;
                 ctrl.calificacion = alumno.calificacion;
             });
         };
         
         ctrl.editar = function() {
-            api.update(ctrl, function(alumnos){
+            proxy.update(ctrl, function(alumnos){
                 $location.path('/');
             });
         };
