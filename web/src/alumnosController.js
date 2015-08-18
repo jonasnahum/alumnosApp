@@ -6,40 +6,15 @@ module.exports = (function() {
         
         var router = this.router;
         
-        router.get('/', function(req, res, next) {
-            alumnosApi.getAll(function (err, alumnos) {
-                if (err) return next(err);
-                res.json(alumnos);
-            });
-        });
+        router.get('/', alumnosApi.getAll);
         
-        router.post('/', function(req, res, next){
-            alumnosApi.save(req.body, function(err, alumno){
-                if(err) return next(err);
-                res.json(alumno);       
-            });
-        });
+        router.post('/', alumnosApi.save);
         
-        router.get('/:id', function(req, res, next) {
-            alumnosApi.getOne(req.params.id, function (err, alumno) {
-                if(err) return next(err);
-                res.json(alumno);
-            });
-        });
+        router.get('/:id', alumnosApi.getOne);
         
-        router.put('/', function(req, res, next) {
-            alumnosApi.update(req.body, function(err, alumno) {
-                if(err) return next(err);
-                res.json(alumno);
-            }); 
-        });
+        router.put('/', alumnosApi.update);
         
-        router.delete('/:id', function(req, res, next) {
-            alumnosApi.delete(req.params.id, function(err, alumno) {
-                if(err) return next(err);
-                res.json(alumno);
-            }); 
-        });
+        router.delete('/:id', alumnosApi.delete);
 
     }
     

@@ -8,7 +8,13 @@ DbConnection.prototype.connect = function (connectionString) {
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
         console.log('Conectado a alumnosDB');
-    });    
+    });
+    process.on('SIGINT', function() {
+        db.close(function() {
+            console.log("Desconectando la base de datos");
+            process.exit(0);
+        });
+    });
 }
 
 module.exports = DbConnection;
