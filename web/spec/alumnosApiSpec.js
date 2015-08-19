@@ -1,70 +1,112 @@
-var Alumno = require("./../src/alumno");
-var mongoose = require("./mongooseMock");
-var AlumnosApi = require("./../src/alumnosApi");
 
 describe("alumnos api", function() {
     it("getAll method", function(done){
-        mongoose.database = [
+        var alumnoMock = require("./alumnoModelMock");
+        var responseMock = require("./responseMock");
+        var AlumnosApi = require("./../src/alumnosApi");
+        var api = new AlumnosApi({alumno: alumnoMock});
+        
+        alumnoMock.bd = [
             {nombre: "Jonas", calificacion: 9},
             {nombre: "ro", calificacion: 8}
         ];
-        var alumno = new Alumno(mongoose);
-        var api = new AlumnosApi(alumno);
         
-        api.getAll(function(err, data) {
-            expect(data).toBe(mongoose.database);
-            done();
-        });
+        api.getAll(null, responseMock, null);
+        expect(responseMock.value).toEqual(alumnoMock.bd);
+        done();
     });
     
-    it("save method", function(done) {
-        var body = {nombre: "Juan", calificacion: 8}
-        var alumno = new Alumno(mongoose);
-        var api =  new AlumnosApi(alumno);
+    it("getAll method error", function(done) {
+        var alumnoMock = require("./alumnoModelMock");
+        var responseMock = require("./responseMock");
+        var AlumnosApi = require("./../src/alumnosApi");
+        var api = new AlumnosApi({alumno: alumnoMock});
         
-        api.save(body, function(err, data) {
-            expect(data.nombre).toBe(body.nombre);
-            expect(data.calificacion).toBe(body.calificacion);
+        alumnoMock.error = new Error("GetAll method error");
+        var next = function(err) {
+            expect(err).toEqual(alumnoMock.error);
+            done();
+        };
+        
+        api.getAll(null, responseMock, next);
+    });
+    
+    
+    it("save method", function(done) {
+        var alumnoMock = require("./alumnoModelMock");
+        var alumnoFactory = require("./alumnoModelFactoryMock");
+        var responseMock = require("./responseMock");
+        var requestMock = require("./requestMock");
+        var AlumnosApi = require("./../src/alumnosApi");
+        var api = new AlumnosApi({alumno: alumnoMock}, alumnoFactory);
+        
+        
+        requestMock.body = {nombre: "Juan", calificacion: 8};
+        
+        api.save(requestMock, responseMock, null);
+        expect(responseMock.value.nombre).toBe(requestMock.body.nombre);
+        expect(responseMock.value.calificacion).
+        toBe(requestMock.body.calificacion);
+        done();
+                
+    });
+    
+    it("save method error", function(done) {
+        var alumnoMock = require("./alumnoModelMock");
+        var alumnoFactory = require("./alumnoModelFactoryMock");
+        var responseMock = require("./responseMock");
+        var requestMock = require("./requestMock");
+        var AlumnosApi = require("./../src/alumnosApi");
+        var api = new AlumnosApi({alumno: alumnoMock}, alumnoFactory);
+        
+        alumnoFactory.error = new Error("save method error");
+        
+        api.save(requestMock, responseMock, function(err){
+            expect(err).toEqual(alumnoFactory.error);
             done();
         });
-        
     });
     
     it("getOne method", function(done) {
-        mongoose.database = [
+        var alumnoMock = require("./alumnoModelMock");
+        var responseMock = require("./responseMock");
+        var requestMock = require("./requestMock");
+        var AlumnosApi = require("./../src/alumnosApi");
+        var api = new AlumnosApi({alumno: alumnoMock});
+        
+        alumnoMock.error = undefined;
+        alumnoMock.bd = [
             {nombre: "Pedro", calificacion: 8, id: 1}
         ];
-        var body = {nombre: "Pedro", calificacion: 8, id: 1};
-        var alumno = new Alumno(mongoose);
-        var api =  new AlumnosApi(alumno);
+        requestMock.params = {id: 1};
         
-        api.getOne(body.id, function(err, data) {
-            expect(data).toEqual(body);
-            done();
-        });
+        api.getOne(requestMock, responseMock, null);
+        expect(responseMock.value).toEqual(alumnoMock.bd[0]);
+        done();
     });
     
     
     it("update method", function(done) {
+        var alumnoMock = require("./alumnoModelMock");
+        var responseMock = require("./responseMock");
+        var requestMock = require("./requestMock");
+        var AlumnosApi = require("./../src/alumnosApi");
+        var api = new AlumnosApi({alumno: alumnoMock});
 
-        var alumno = new Alumno(mongoose);
-        var api =  new AlumnosApi(alumno);
+        alumnoMock.error = undefined;
+        alumnoMock.bd = [
+            {nombre: "Pedro", calificacion: 8, id: 1}
+        ];
         
-        var body = {nombre: "Luis", calificacion: 2, id: 6};
+        var bodyUpdate = {nombre: "Juan", calificacion: 9, id: 1}; 
+        requestMock.body = bodyUpdate;
         
-        api.save(body, function(err, alumnoInstance) {
-            
-        });
-    
-        var bodyUpdate = {nombre: "Pedrito", calificacion: 9, id: 6}; 
-        api.update(bodyUpdate, function(err, data){
-            expect(data.nombre).toBe(bodyUpdate.nombre);
-            expect(data.calificacion).toBe(bodyUpdate.calificacion);
-            expect(data.id).toBe(bodyUpdate.id);
-            done();
-        });
+        api.update(requestMock, responseMock, null);
+        expect(responseMock.value).toEqual(bodyUpdate);
+        done();
     });
     
+    /*
     it("delete method", function(done) {
         var alumno = new Alumno(mongoose);
         var api =  new AlumnosApi(alumno);
@@ -85,5 +127,5 @@ describe("alumnos api", function() {
         });
         
     });
-    
+    */
 });

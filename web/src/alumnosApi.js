@@ -15,7 +15,10 @@ var AlumnosApi = (function() {
     AlumnosApi.prototype.save = function(req, res, next){
         var that = this;
         var alumno = that.alumnoFactory.get();
-        alumno.prototype = body;
+        //alumno.prototype = req.body;
+        for(var property in req.body) {
+            alumno[property] = req.body[property];
+        };
         alumno.save(function(err, alumno){
             if(err) return next(err);
             res.json(alumno);       
@@ -32,11 +35,11 @@ var AlumnosApi = (function() {
     
     AlumnosApi.prototype.update = function(req, res, next) {
         var that = this;
-        that.models.alumno.findById(body.id, function (err, alumno) {
+        that.models.alumno.findById(req.body.id, function (err, alumno) {
             if(err) return next(err);
             
-            alumno.nombre = body.nombre;
-            alumno.calificacion = body.calificacion;
+            alumno.nombre = req.body.nombre;
+            alumno.calificacion = req.body.calificacion;
 
             alumno.save(function(err, alumno) {
                 if(err) return next(err);
