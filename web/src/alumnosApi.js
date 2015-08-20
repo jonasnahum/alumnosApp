@@ -15,7 +15,6 @@ var AlumnosApi = (function() {
     AlumnosApi.prototype.save = function(req, res, next){
         var that = this;
         var alumno = that.alumnoFactory.get();
-        //alumno.prototype = req.body;
         for(var property in req.body) {
             alumno[property] = req.body[property];
         };
