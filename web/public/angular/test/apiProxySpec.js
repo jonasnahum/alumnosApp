@@ -1,4 +1,4 @@
-describe("Alumnos Api ", function() {
+describe("Api Proxy", function() {
     var url = '/alumnos/api/';
     var id = 1;
     var alumnos = [
@@ -9,23 +9,21 @@ describe("Alumnos Api ", function() {
     var $httpMock = undefined;
     var api = undefined;
     var logMock = undefined;
-    var putHandler = undefined; 
+    var putHandler
     
     beforeEach(module('app'));
-    
-    beforeEach(inject(function($httpBackend, alumnosApi, $log) {
+    beforeEach(inject(function($httpBackend, $log, proxyFactory) {
         
         $httpMock = $httpBackend;
-        
         logMock = $log;
+        api = proxyFactory(url);
         
-        api = alumnosApi;
         $httpBackend.when('GET', url).respond(alumnos);
-        $httpBackend.when('GET', url + id).respond(alumnos[0]); 
+        $httpBackend.when('GET', url + id).respond(alumnos[0]);
+        $httpBackend.when('DELETE', url + id).respond(true);
         $httpBackend.when('POST', url).respond(true);
         putHandler = $httpBackend.when('PUT', url).respond(true);
-        $httpBackend.when('DELETE', url + id).respond(false);
-    
+        
     }));
     
     it('gets all', function() {
@@ -36,54 +34,52 @@ describe("Alumnos Api ", function() {
         $httpMock.flush();    
     });
     
-    it('gets one', function() {
-        api.getOne(id, function(data) {                
+    it('getOne', function() {
+        $httpMock.expectGET(url + id);
+        api.getOne(id, function(data) {
             expect(data).toEqual(alumnos[0]);
         });
-        $httpMock.expectGET(url + id);
         $httpMock.flush();
     });
     
-    it('saves', function() {
-        
+    it('delete', function() {
+        $httpMock.expectDELETE(url + id);
+        api.delete(id, function(data) {
+            expect(data).toBe(true);
+        });
+        $httpMock.flush();
+    });
+    
+    it('save', function() {
         $httpMock.expectPOST(url);
-        api.save(alumnos[1], function(result) {                
-            expect(result).toBe(true);
+        api.save(alumnos[1], function(data) {
+            expect(data).toBe(true);
         });
         $httpMock.flush();
-        
     });
     
-    it('updates', function() {
-        
+    it('update', function() {
         $httpMock.expectPUT(url);
-        api.update(alumnos[1], function(result) {                
-            expect(result).toBe(true);
+        api.update(alumnos[1], function(data) {
+            expect(data).toBe(true);
         });
         $httpMock.flush();
-        
     });
     
-    
-    it('Server fail', function() {
-        
-        logMock.error =  function() {
+    it('server fail', function() {
+        logMock.error = function() {
             expect(arguments[0]).toBe('%s %s %s');
             expect(arguments[1]).toBe('PUT');
             expect(arguments[2]).toBe(url);
-            expect(arguments[3]).toBe(404);            
+            expect(arguments[3]).toBe(404);
         };
-    
-        putHandler.respond(404, 'not found')
+        
+        putHandler.respond(404, 'Not found');
         
         $httpMock.expectPUT(url);
-        api.update(alumnos[1], function(result) {                
-            console.log('ESTE TEXTO NO DEBERIA APARECER');
-            console.log(arguments.length);
+        api.update(alumnos[1], function(data) {
+            console.log('no deberia salir este mensaje');
         });
         $httpMock.flush();
-        
     });
-    
-    
 });

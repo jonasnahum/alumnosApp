@@ -1,8 +1,6 @@
 (function () {
     var app = angular.module('app', ['ngRoute']);
     
-    
-    
     app.config(["$routeProvider", "$httpProvider", function ($router, $httpProvider) { 
         $httpProvider.interceptors.push('httpInterceptor');
         
