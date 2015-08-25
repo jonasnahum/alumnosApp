@@ -6,15 +6,15 @@ module.exports = (function() {
         
         var router = this.router;
         
-        router.get('/', alumnosApi.getAll);
+        router.get('/', alumnosApi.getAll.bind(alumnosApi));
         
-        router.post('/', alumnosApi.save);
+        router.post('/', alumnosApi.save.bind(alumnosApi));
         
-        router.get('/:id', alumnosApi.getOne);
+        router.get('/:id', alumnosApi.getOne.bind(alumnosApi));
         
-        router.put('/', alumnosApi.update);
+        router.put('/', alumnosApi.update.bind(alumnosApi));
         
-        router.delete('/:id', alumnosApi.delete);
+        router.delete('/:id', alumnosApi.delete.bind(alumnosApi));
 
     }
     

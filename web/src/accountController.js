@@ -7,9 +7,9 @@ module.exports = (function() {
         var router = this.router;
         var that = this;
             
-        router.post('/login', usuariosApi.findByEmail);
+        router.post('/login', usuariosApi.findByEmail.bind(usuariosApi));
         
-        router.post('/signup', usuariosApi.save);
+        router.post('/signup', usuariosApi.save.bind(usuariosApi));
     };
     
     return AccountController;
