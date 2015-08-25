@@ -1,4 +1,5 @@
 <ul ng-controller="TodosController as ctrl">
+    <h1>{{"Hola : " + ctrl.saludo || "no hay usuario"}}</h1>
     <li ng-repeat="alumno in ctrl.alumnos">
         {{ alumno.nombre }} - {{ alumno.calificacion }}
         <a ng-href="#/editar/{{alumno._id}}">Editar</a>

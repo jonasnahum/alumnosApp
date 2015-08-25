@@ -4,7 +4,7 @@
     app.factory('proxyFactory', ['$http', '$log', function($http, $log) {
         
         var Proxy = function(url) {
-            this.url = url;
+            this.url = "http://localhost:3000" + url;
         };
         
         Proxy.prototype.error = function(data, status, headers, config){

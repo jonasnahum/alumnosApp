@@ -7,8 +7,9 @@ var UsuariosApi = (function() {
     };
     
     UsuariosApi.prototype.findByEmail = function(req, res, next) {
-        var that = this;    
-        that.models.usuario.find(req.body.email, function(err, user) {
+        var that = this;
+   
+        that.models.usuario.findOne({ email: req.body.email}, function(err, user) {
             if(err) {
                 return next(err);
             }
@@ -44,7 +45,6 @@ var UsuariosApi = (function() {
         for (var property in req.body){
             usuario[property] = req.body[property];
         }
-        console.dir(usuario);
         usuario.save(function(err, usuario){
 
             if(err) return next(err);

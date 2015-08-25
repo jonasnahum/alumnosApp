@@ -25,6 +25,14 @@
                     return tokenObj.token;
                 }
                 return '';
+            },
+            getEmail: function() {
+                var that = this;
+                var tokenObj = that.getToken();
+                if (tokenObj) {
+                    return tokenObj.user.email;
+                }
+                return 'No hay email';
             }
         };
     }]);

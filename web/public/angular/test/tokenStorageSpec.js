@@ -36,6 +36,14 @@ describe('tokenStorage test', function() {
         expect(tokenStorage.getAccessHeader()).toBe(expected.token);
     
     }));
+    it('getEmail method', inject(function (tokenStorage) {
+        var email = "jonasnahum@gmail.com";
+        var expected = {token: '123asd', user: {email: email}};
+        tokenStorage.setToken(expected);
+        expect(tokenStorage.getEmail()).toBe(email);
+        tokenStorage.clearToken();
+        expect(tokenStorage.getEmail()).toBe('No hay email');
+    }));
     
     
 });
