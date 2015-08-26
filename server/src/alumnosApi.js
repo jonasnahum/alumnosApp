@@ -1,7 +1,9 @@
 var AlumnosApi = (function() {
-    var AlumnosApi = function(models, alumnoFactory) {
+    var AlumnosApi = function(models, alumnoFactory, err) {
         this.models = models;
         this.alumnoFactory = alumnoFactory;
+        this.err = err;
+        
     };
     
     AlumnosApi.prototype.getAll = function(req, res, next) {
@@ -19,7 +21,7 @@ var AlumnosApi = (function() {
             alumno[property] = req.body[property];
         };
         alumno.save(function(err, alumno){
-            if(err) return next(err);
+            if(err) return that.err.printError(err);
             res.json(alumno);       
         });
     };

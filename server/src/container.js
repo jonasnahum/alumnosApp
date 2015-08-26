@@ -8,9 +8,10 @@ var models = {
     alumno: Alumno,
     usuario: Usuario
 };
+var Error = require("./errManagger");
 
 var AlumnosApi = require("./alumnosApi");
-AlumnosApi.$inject = ["models", "alumnoFactory"];
+AlumnosApi.$inject = ["models", "alumnoFactory", "err"];
 
 var UsuariosApi = require("./usuariosApi");
 UsuariosApi.$inject = ["models", "usuarioFactory", "moment", "jwt"];
@@ -30,6 +31,7 @@ var container = intravenous.create();
 container.register("models", models);
 container.register("alumno", Alumno);
 container.register("usuario", Usuario);
+container.register("err", Error);
 container.register("alumnosApi", AlumnosApi);
 container.register("express", { module: require('express') });
 container.register("mongoose", { module: require('mongoose') });
