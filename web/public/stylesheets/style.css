@@ -1,17 +1,3 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+#angularViews {
+  padding-top: 50px;
 }
-
-a {
-  color: #00B7FF;
-}
-
-.ng-invalid.ng-dirty {
-    border-color: #FA787E;
-}
-
-.ng-valid.ng-dirty {
-    border-color: #78FA89;
-}
-
