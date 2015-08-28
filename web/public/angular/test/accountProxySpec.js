@@ -25,11 +25,11 @@ describe('accountProxy test', function() {
     
     it('create an instance', inject(function (accountProxy) {
         expect(accountProxy.loginProxy.url)
-            .toBe('/account/api/login');
+            .toBe('http://localhost:3000/account/api/login');
         expect(accountProxy.logoutProxy.url)
-            .toBe('/account/api/logout');
+            .toBe('http://localhost:3000/account/api/logout');
         expect(accountProxy.signupProxy.url)
-            .toBe('/account/api/signup');
+            .toBe('http://localhost:3000/account/api/signup');
     }));
     
     it('login method', inject(function(accountProxy) {

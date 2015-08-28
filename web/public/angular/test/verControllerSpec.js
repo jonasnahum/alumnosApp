@@ -1,5 +1,5 @@
 describe("ver controller", function(){
-    var url = '/alumnos/api/';
+    var url = 'http://localhost:3000/alumnos/api/';
     var id = 10;
     var all = [
         { nombre: 'rodrigo', calificacion: 30, id: 10, _id: id },
@@ -9,7 +9,7 @@ describe("ver controller", function(){
     
     beforeEach(module('app')); 
     
-    var $controller, $httpMock;
+    var $controller, $httpMock, $locationCaptured;
 
     beforeEach(inject(function(_$controller_){
         $controller = _$controller_;
@@ -18,6 +18,11 @@ describe("ver controller", function(){
     beforeEach(inject(function($httpBackend) {
         $httpMock = $httpBackend;
         $httpBackend.when('GET',  url + id).respond(all[0]);
+        $httpBackend.when('DELETE',  url + id).respond(all[0]);
+    }));
+    
+    beforeEach(inject(function($location) {
+        $locationCaptured = $location;
     }));
 
     beforeEach(inject(function($routeParams) {
@@ -39,5 +44,16 @@ describe("ver controller", function(){
         expect(controller.calificacion).toEqual(all[0].calificacion);
         expect(controller.id).toEqual(id);
         
+    });
+    it('changes location on Delete', function() {
+        var controller = $controller('VerController');
+        
+        controller.id = id;
+        controller.delete();
+        
+        $httpMock.expectDELETE(url + id);
+        $httpMock.flush();
+        
+        expect($locationCaptured.path()).toBe('/todos');
     });
 });

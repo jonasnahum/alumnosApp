@@ -1,11 +1,15 @@
-<ul ng-controller="TodosController as ctrl">
-    <h1>{{"Hola : " + ctrl.saludo || "no hay usuario"}}</h1>
-    <li ng-repeat="alumno in ctrl.alumnos">
-        {{ alumno.nombre }} - {{ alumno.calificacion }}
-        <a ng-href="#/editar/{{alumno._id}}">Editar</a>
-        <a ng-href="#/ver/{{alumno._id}}">Ver</a>
-        <a href="#" ng-click="ctrl.delete(alumno._id)">Borrar</a>
-    </li>
-</ul>
-
-<a ng-href="#/nuevo">Nuevo</a>
+<div ng-controller="TodosController as ctrl">
+    <h1 class="text-center">Alumnos</h1>
+    <h4>{{"Hola : " + ctrl.saludo || "no hay usuario"}}</h4>
+    <p class="text-right">
+        <a class="btn btn-lg btn-success" href="#/nuevo" role="button">Alumno 
+        Nuevo</a>
+    </p>
+    
+    <table class="table table-hover">
+      <tr ng-repeat="alumno in ctrl.alumnos">
+        <td><a ng-href="#/ver/{{alumno._id}}">{{alumno.nombre}}</a></td>
+        <td><a href="#" ng-click="ctrl.delete(alumno._id)">Borrar</a></td>
+      </tr>
+    </table>
+</div>

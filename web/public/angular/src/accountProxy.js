@@ -3,9 +3,9 @@
     
     app.factory("accountProxy", ["proxyFactory", function(proxyFactory) {
         var AccountProxy = function() {
-            this.loginProxy = proxyFactory('/account/api/login');
-            this.logoutProxy = proxyFactory('/account/api/logout');
-            this.signupProxy = proxyFactory('/account/api/signup');
+            this.loginProxy = proxyFactory('http://localhost:3000/account/api/login');
+            this.logoutProxy = proxyFactory('http://localhost:3000/account/api/logout');
+            this.signupProxy = proxyFactory('http://localhost:3000/account/api/signup');
         };
         
         AccountProxy.prototype.login = function(model, success){

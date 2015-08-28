@@ -50,9 +50,13 @@ var AlumnosApi = (function() {
     AlumnosApi.prototype.delete = function(req, res, next) {
         var that = this;
         var remove = that.models.alumno.findByIdAndRemove;
-        
+    
         remove(req.params.id, function(err, alumno) {
-            if(err) return next(err);
+            console.log("hola");
+            console.log(err);
+            console.log(alumno);
+            
+            if(err) console.log(err);//return next(err);
             res.json(alumno);
         }); 
     };    

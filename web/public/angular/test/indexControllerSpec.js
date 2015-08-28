@@ -1,5 +1,6 @@
+
 describe("Todos controller", function(){
-    var url = '/alumnos/api/';
+    var url = 'http://localhost:3000/alumnos/api/';
     var id = 10;
     var all = [
         { nombre: 'rodrigo', calificacion: 30, id: 10 },

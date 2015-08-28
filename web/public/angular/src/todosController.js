@@ -11,11 +11,11 @@
             ctrl.alumnos = alumnos;
         });
 
-        ctrl.delete = function (id) {
+        ctrl.delete = function (id) {//moved to verController
             proxy.delete(id, function(){
                 $location.path('/');
             });      
         };
-        
+
     }]);
 })();

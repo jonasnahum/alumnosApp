@@ -1,14 +1,13 @@
-/*
-var mongoose = require("./mongooseMock");
+/*var mongoose = require("./mongooseMock");
 var express = require("./expressMock");
-var Alumno = require("./../src/alumno");
+var Alumno = require("./alumnoMock");
 var AlumnosApi = require("./../src/alumnosApi");
 var AlumnosController = require("./../src/alumnosController");
 
 describe("Alumnos Controller", function() {
     it("getAll", function(done) {
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         mongoose.database = [
             {nombre: "Pedro", calificacion: 9, id: 1}
@@ -21,7 +20,7 @@ describe("Alumnos Controller", function() {
     
     it("getAll error", function(done) {
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         mongoose.err = new Error("Test error");
         mongoose.database = [
@@ -37,7 +36,7 @@ describe("Alumnos Controller", function() {
     it("post", function(done) {
         mongoose.err = undefined;
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -53,7 +52,7 @@ describe("Alumnos Controller", function() {
     it("post error", function(done) {
         mongoose.err = new Error("Post error");
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -69,7 +68,7 @@ describe("Alumnos Controller", function() {
     it("getOne", function(done) {
         mongoose.err = undefined;
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -88,7 +87,7 @@ describe("Alumnos Controller", function() {
     it("getOne err", function(done) {
         mongoose.err = new Error("getOne error");
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -107,7 +106,7 @@ describe("Alumnos Controller", function() {
     it("put", function(done) {
         mongoose.err = undefined;
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -131,7 +130,7 @@ describe("Alumnos Controller", function() {
     it("put error", function(done) {
         mongoose.err = new Error("Test error");
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -149,7 +148,7 @@ describe("Alumnos Controller", function() {
     it("delete", function(done) {
         mongoose.err = undefined;
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
@@ -170,7 +169,7 @@ describe("Alumnos Controller", function() {
     it("delete error", function(done) {
         mongoose.err = new Error("test error");
         var alumno = new Alumno(mongoose);
-        var alumnosApi = new AlumnosApi(alumno);
+        var alumnosApi = new AlumnosApi({alumno: Alumno});
         var controller = new AlumnosController(express, alumnosApi);
         var body = {nombre: "Jonas", calificacion: 9, id: 2};
         
