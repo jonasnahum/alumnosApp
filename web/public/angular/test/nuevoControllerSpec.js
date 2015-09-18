@@ -27,6 +27,6 @@ describe("nuevo controller", function(){
         $httpMock.expectPOST(url);
         $httpMock.flush();
         
-        expect($locationCaptured.path()).toBe('/');
+        expect($locationCaptured.path()).toBe('/todos');
     });
 });

@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
 
 var schema = mongoose.Schema({
-    nombre: String,
-    calificacion: Number
+    nombre: { type: String, unique: true, required: true },
+    calificacion: {type: Number, min: 13, max:19}
 });
 
 module.exports = mongoose.model('Alumno', schema);

@@ -56,7 +56,7 @@ describe("editar controller", function(){
         $httpMock.expectPUT(url);
         $httpMock.flush();
         
-        expect($locationCaptured.path()).toBe('/');
+        expect($locationCaptured.path()).toBe('/todos');
         
     });
 });

@@ -37,14 +37,4 @@ describe("Todos controller", function(){
         expect(controller.alumnos).toEqual(all);
     });
     
-    it('changes location on Delete', function() {
-        var controller = $controller('TodosController');
-        
-        controller.delete(id);
-        
-        $httpMock.expectDELETE(url + id);
-        $httpMock.flush();
-        
-        expect($locationCaptured.path()).toBe('/');
-    });
 });

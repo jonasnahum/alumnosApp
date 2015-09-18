@@ -10,12 +10,11 @@
         proxy.getAll(function(alumnos){
             ctrl.alumnos = alumnos;
         });
-
-        ctrl.delete = function (id) {//moved to verController
-            proxy.delete(id, function(){
-                $location.path('/');
-            });      
+        ctrl.logout = function (){
+            tokenStorage.clearToken();
+            $location.path("/login");
+            return false;
         };
-
+                
     }]);
 })();

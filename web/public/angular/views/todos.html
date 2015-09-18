@@ -1,5 +1,10 @@
 <div ng-controller="TodosController as ctrl">
     <h1 class="text-center">Alumnos</h1>
+         <div class="navbar-right" style="position: relative; top: -70px; left: 96px; background-color:#F8F8F8; border: 1px solid transparent; border-color: #E7E7E7;">
+              <ul class="nav navbar-nav">
+                <li ><a href ng-click="ctrl.logout()">Logout</a></li>
+              </ul>
+         </div>
     <h4>{{"Hola : " + ctrl.saludo || "no hay usuario"}}</h4>
     <p class="text-right">
         <a class="btn btn-lg btn-success" href="#/nuevo" role="button">Alumno 
@@ -9,7 +14,6 @@
     <table class="table table-hover">
       <tr ng-repeat="alumno in ctrl.alumnos">
         <td><a ng-href="#/ver/{{alumno._id}}">{{alumno.nombre}}</a></td>
-        <td><a href="#" ng-click="ctrl.delete(alumno._id)">Borrar</a></td>
       </tr>
     </table>
 </div>

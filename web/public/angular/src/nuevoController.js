@@ -8,7 +8,7 @@
         
         ctrl.guardar = function() {
             proxy.save(ctrl, function(alumnos){
-                $location.path('/');
+                $location.path('/todos');
             });
         };
         

@@ -17,7 +17,7 @@
         
         ctrl.editar = function() {
             proxy.update(ctrl, function(alumnos){
-                $location.path('/');
+                $location.path('/todos');
             });
         };
         

@@ -4,10 +4,14 @@
         Nombre: {{ctrl.nombre}}
          <br>
         Calificacion: {{ctrl.calificacion}}
-        <a ng-href="#/">Regresar a todos</a>
+        <a ng-href="#/todos">Regresar a todos</a>
          <br>
-        <a ng-href="#/editar/{{ctrl.id}}">Editar</a>
-        <a href="#/todos" ng-click="ctrl.delete()">Borrar</a>
+         <br>
+        <p class="text-center"><a class="btn btn-lg btn-success" ng-
+            href="#/editar/{{ctrl.id}}" role="button">Editar</a>
+            <a class="btn btn-lg btn-warning" href="#/todos" ng-click="ctrl.delete()"
+            role="button">Borrar</a>
+         </p>
     </div>
 </div>
 
